@@ -32,9 +32,32 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """returns a page
+        """
         assert isinstance(page, int)
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
+
         start_index, end_index = index_range(page, page_size)
+
+        if start_index > len(self.dataset()):
+            return []
         return self.dataset()[start_index:end_index]
+
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """returns a dict containing data description
+        """
+        data = self.get_page(page, page_size)
+        prev_page = page - 1 if page > 1 else None
+        next_page = page + 1 if len(self.dataset())/page_size > page else None
+        total_pages = math.ceil(len(self.dataset()) / page_size)
+
+        return {
+            'page_size': len(data),
+            'page': page_size,
+            'data': data,
+            'next_page': next_page,
+            'prev_page': prev_page,
+            'total_pages': total_pages
+        }
