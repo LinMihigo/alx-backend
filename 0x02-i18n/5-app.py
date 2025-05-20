@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, g
 from flask_babel import Babel, _
 from typing import Union, Dict
 
+
 class Config:
     """App configuration"""
     LANGUAGES = ['en', 'fr']
