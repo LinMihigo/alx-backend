@@ -1,1 +1,3 @@
 **/__pycache__
+**/node_modules
+**/redis-8.0.0
